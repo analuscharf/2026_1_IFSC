@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Experiências</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--cor7);
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--cor3);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            background-color: var(--cor7);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+        
+        button:hover {
+            background-color: var(--cor5);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--cor3);
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <header>
+            <h1>Formulário de Experiências</h1>
+            <p>Registre suas experiências com filmes, livros e músicas</p>
+            <p><a href="index.html">← Voltar para a página principal</a></p>
+        </header>
+        
+        <form id="form-experiencias">
+            <section class="form-section">
+                <h2>Informações Pessoais</h2>
+                
+                <div class="form-group">
+                    <label for="nome">Nome completo:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" name="idade" min="1" max="120">
+                </div>
+            </section>
+            
+            <section class="form-section">
+                <h2>Filmes Assistidos</h2>
+                
+                <div class="form-group">
+                    <label for="filme-titulo">Título do filme:</label>
+                    <input type="text" id="filme-titulo" name="filme-titulo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="filme-genero">Gênero:</label>
+                    <select id="filme-genero" name="filme-genero">
+                        <option value="">Selecione...</option>
+                        <option value="acao">Ação</option>
+                        <option value="aventura">Aventura</option>
+                        <option value="comedia">Comédia</option>
+                        <option value="drama">Drama</option>
+                        <option value="fantasia">Fantasia</option>
+                        <option value="ficcao">Ficção Científica</option>
+                        <option value="romance">Romance</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="filme-data">Quando assistiu:</label>
+                    <input type="date" id="filme-data" name="filme-data">
+                </div>
+                
+                <div class="form-group">
+                    <label for="filme-nota">Nota (0-10):</label>
+                    <input type="range" id="filme-nota" name="filme-nota" min="0" max="10" value="5">
+                    <span id="nota-valor">5</span>
+                </div>
+            </section>
+            
+            <section class="form-section">
+                <h2>Livros Lidos</h2>
+                
+                <div class="form-group">
+                    <label for="livro-titulo">Título do livro:</label>
+                    <input type="text" id="livro-titulo" name="livro-titulo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="livro-autor">Autor:</label>
+                    <input type="text" id="livro-autor" name="livro-autor">
+                </div>
+                
+                <div class="form-group">
+                    <label for="livro-status">Status:</label>
+                    <select id="livro-status" name="livro-status">
+                        <option value="completo">Completo</option>
+                        <option value="andamento">Em andamento</option>
+                        <option value="planejado">Planejado</option>
+                    </select>
+                </div>
+            </section>
+            
+            <section class="form-section">
+                <h2>Músicas Marcantes</h2>
+                
+                <div class="form-group">
+                    <label for="musica-nome">Nome da música:</label>
+                    <input type="text" id="musica-nome" name="musica-nome">
+                </div>
+                
+                <div class="form-group">
+                    <label for="musica-artista">Artista/Banda:</label>
+                    <input type="text" id="musica-artista" name="musica-artista">
+                </div>
+                
+                <div class="form-group">
+                    <label for="musica-ano">Ano de lançamento:</label>
+                    <input type="number" id="musica-ano" name="musica-ano" min="1900" max="2023">
+                </div>
+                
+                <div class="form-group">
+                    <label>Playlist:</label><br>
+                    <input type="checkbox" id="playlist-favoritas" name="playlist" value="favoritas">
+                    <label for="playlist-favoritas">Favoritas</label><br>
+                    <input type="checkbox" id="playlist-trabalho" name="playlist" value="trabalho">
+                    <label for="playlist-trabalho">Para trabalhar</label><br>
+                    <input type="checkbox" id="playlist-viagem" name="playlist" value="viagem">
+                    <label for="playlist-viagem">Para viagem</label>
+                </div>
+                
+                <div class="form-group">
+                    <label for="musica-memoria">Memória associada:</label>
+                    <textarea id="musica-memoria" name="musica-memoria" placeholder="O que esta música te lembra?"></textarea>
+                </div>
+            </section>
+            
+            <div class="form-actions">
+                <button type="submit">Enviar Experiências</button>
+                <button type="reset">Limpar Formulário</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

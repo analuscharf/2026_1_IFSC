@@ -1,0 +1,230 @@
+ FE1 2 — Estrutura básica do projeto
+Exercícios
+
+Crie um documento HTML completo contendo <head> e <body>.
+
+Defina o título da página como Meu Universo Criativo.
+
+No corpo do documento:
+
+adicione um título com seu nome;
+
+escreva um parágrafo com uma breve apresentação pessoal.
+
+Crie três seções simples com:
+
+um título;
+
+um parágrafo explicando por que esses universos fazem parte da sua vida.
+
+
+ FE1 3 — HTML5 semântico
+Exercícios
+
+Continue o projeto da aula anterior utilizando apenas tags semânticas do HTML5
+(não utilize <div>).
+
+Utilize corretamente:
+
+<header>, <main>, <section>, <article>, <footer>.
+
+No cabeçalho:
+
+mantenha seu nome;
+
+utilize <strong> e <em> no  parágrafo com a breve apresentação pessoal.
+
+Crie uma seção chamada Universos que me inspiram, contendo:
+
+uma lista ordenada (<ol>) com seus universos favoritos;
+
+uma lista não ordenada (<ul>) com  musicas relacionadas a esse universo que você gosta.
+
+
+ FE1 4 — Ícones, imagens e links
+Exercícios
+
+Clone o repositório do projeto.
+
+Crie um diretório chamado img/ e, dentro dele, um diretório chamado icones/.
+
+Associe ícones visuais aos universos criativos do projeto (filmes, livros, música).
+
+Os ícones devem aparecer ao lado do nome de cada universo.
+
+Transforme:
+
+nomes de filmes, séries ou livros em links informativos.
+
+Insira no rodapé as referências das imagens utilizadas.
+
+Valide o documento HTML.
+
+
+
+ FE1 5
+1. Clone o repositório do GitHub e copie o arquivo do exercício anterior
+2. Adicione uma tabela com os horários das suas disciplinas (como um
+calendário), seguindo o modelo abaixo.
+
+
+ FE1 6 — Formulários
+Exercícios
+
+Crie um novo documento HTML chamado formulario.html.
+
+Desenvolva um formulário para registrar experiências pessoais, como:
+
+filmes assistidos;
+
+livros lidos;
+
+músicas marcantes.
+
+O formulário deve conter:
+
+pelo menos 8 campos;
+
+5 tipos diferentes de entrada.
+
+Inclua um botão de envio.
+
+Crie um link para esse formulário a partir da página principal.
+
+
+
+ FE1 7 — CSS externo
+Exercícios
+
+Crie uma folha de estilos externa chamada estilos.css.
+
+Altere o estilo de todos os elementos de texto.
+
+Cada elemento textual deve ter pelo menos duas propriedades alteradas.
+
+Estilize os demais elementos livremente.
+
+Todos os estilos devem estar exclusivamente no arquivo CSS externo.
+
+
+ FE1 8 — Seletores, classes e ids
+Exercícios
+
+Defina box-sizing: border-box para todo o documento.
+
+Atribua:
+
+um id para a seção principal de universos criativos;
+
+a classe destaque para seus universos ou personagens favoritos.
+
+No CSS:
+
+altere a cor de elementos internos usando RGB;
+
+destaque os elementos com a classe destaque usando negrito.
+
+Atribua a classe “destaque” ao <td> da disciplina do docente na tabela de horários para
+ela também ficar em negrito
+
+
+FE1 9 — Layout em colunas
+Exercícios
+
+Crie uma nova seção com três colunas, contendo:
+
+lista de filmes/livros favoritos;
+
+galeria de imagens personagens favoritos;
+
+listas de filmes/livros que você deseja  conhecer;
+
+A galeria deve conter no mínimo 9 imagens.
+
+O layout deve ser responsivo.
+
+Utilize pseudo-classes e pseudo-elementos em todas as colunas.
+
+Valide o documento HTML.
+
+
+ FE1 10 — Coleção de personagens
+Exercícios
+
+Crie uma nova página chamada personagens.html.
+
+Desenvolva uma coleção de personagens icônicos que você gosta.
+
+Cada personagem deve conter:
+
+imagem;
+
+nome;
+
+universo (filme, série, livro etc.).
+
+Organize os personagens em um layout de grid.
+
+Crie uma barra superior fixa visível durante a rolagem.
+
+
+
+ FE1 11 — Responsividade
+Exercícios
+
+Torne a página de personagens responsiva.
+
+Defina pelo menos três breakpoints.
+
+O layout deve se adaptar a:
+
+telas pequenas;
+
+médias;
+
+grandes;
+
+modo retrato e paisagem.
+
+ Todos os elementos devem ajustar-se à tela do dispositivo (texto, imagens,
+layout, etc.)
+
+
+ FE1 19 — DOM: criação dinâmica
+Exercícios
+
+Crie um arquivo personagens.js.
+
+Armazene os personagens em um array de objetos JavaScript.
+
+Gere dinamicamente os cards de personagens utilizando o DOM.
+
+Não escreva personagens diretamente no HTML.
+
+ FE1 20 — DOM: interação
+Exercícios
+
+Crie a página memoria.html.
+
+Desenvolva a estrutura do jogo da memória usando JavaScript.
+
+As cartas devem ser criadas dinamicamente.
+
+Apenas duas cartas podem ser exibidas por vez.
+
+Utilize eventos de clique.
+
+ FE1 21 — DOM: lógica e persistência
+Exercícios
+
+Implemente a lógica de comparação de cartas.
+
+Crie um contador de tentativas.
+
+Exiba uma mensagem ao final do jogo.
+
+Utilize localStorage para salvar:
+
+número de partidas OU
+
+melhor desempenho do usuário.

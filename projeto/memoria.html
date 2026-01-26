@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Estilos específicos para o jogo da memória */
+        :root {
+            --cor1: #A3A380;
+            --cor2: #efebce;
+            --cor3: #dbdbb7;
+            --cor4: #d7ce93;
+            --cor5: #bb8588;
+            --cor6: #d8a48f;
+            --cor7: #a05c5f;
+        }
+        
+        /* Navbar fixa */
+        .memoria-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--cor1) 0%, #8a8a6d 100%);
+            padding: 20px 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+        
+        .navbar-logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .navbar-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .navbar-links a:hover {
+            background-color: var(--cor7);
+            transform: translateY(-2px);
+        }
+        
+        .navbar-links a.active {
+            background-color: var(--cor7);
+            box-shadow: 0 4px 8px rgba(160, 92, 95, 0.3);
+        }
+        
+        /* Ajuste para navbar fixa */
+        body {
+            padding-top: 90px;
+            background-color: var(--cor2);
+            min-height: 100vh;
+        }
+        
+        /* Container principal do jogo */
+        .game-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        /* Cabeçalho do jogo */
+        .game-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, white, var(--cor3));
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .game-header h1 {
+            color: var(--cor7);
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .game-header p {
+            color: var(--cor5);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Estatísticas do jogo */
+        .game-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--cor7);
+            box-shadow: 0 10px 25px rgba(160, 92, 95, 0.15);
+        }
+        
+        .stat-label {
+            display: block;
+            color: var(--cor5);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .stat-value {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--cor7);
+        }
+        
+        /* Controles do jogo */
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .game-btn {
+            background: linear-gradient(135deg, var(--cor7) 0%, var(--cor5) 100%);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 15px rgba(160, 92, 95, 0.3);
+        }
+        
+        .game-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(160, 92, 95, 0.4);
+        }
+        
+        .game-btn:active {
+            transform: translateY(0);
+        }
+        
+        .game-btn:disabled {
+            background: linear-gradient(135deg, var(--cor1), var(--cor3));
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Tabuleiro do jogo */
+        .game-board {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .tabuleiro {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin: 0 auto;
+        }
+        
+        .carta {
+            aspect-ratio: 3/4;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        
+        .carta-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 15px;
+        }
+        
+        .carta.virada .carta-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .carta.encontrada .carta-inner {
+            transform: rotateY(180deg);
+            box-shadow: 0 0 25px var(--cor7);
+        }
+        
+        .carta-frente, .carta-verso {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .carta-frente {
+            background: linear-gradient(135deg, var(--cor7), var(--cor5));
+            color: white;
+            font-size: 2.8rem;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .carta-verso {
+            background: white;
+            transform: rotateY(180deg);
+            border: 4px solid var(--cor4);
+            padding: 10px;
+        }
+        
+        .carta-verso img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        /* Mensagem do jogo */
+        .game-message {
+            background: linear-gradient(135deg, var(--cor4), var(--cor6));
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px auto;
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--cor7);
+            font-weight: bold;
+            display: none;
+            max-width: 800px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+        
+        /* Instruções */
+        .game-instructions {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 50px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .game-instructions h2 {
+            color: var(--cor7);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2rem;
+        }
+        
+        .game-instructions ol {
+            max-width: 600px;
+            margin: 0 auto 25px;
+            font-size: 1.1rem;
+        }
+        
+        .game-instructions li {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: var(--cor2);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .game-instructions li:hover {
+            background-color: var(--cor3);
+            transform: translateX(10px);
+        }
+        
+        .game-tip {
+            text-align: center;
+            font-style: italic;
+            color: var(--cor5);
+            padding: 20px;
+            background-color: var(--cor2);
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* ========== RESPONSIVIDADE DO JOGO ========== */
+        
+        /* Tablets */
+        @media (min-width: 768px) {
+            .tabuleiro {
+                gap: 30px;
+            }
+            
+            .carta-frente {
+                font-size: 3.2rem;
+            }
+            
+            .stat-card {
+                padding: 30px;
+            }
+            
+            .stat-value {
+                font-size: 2.8rem;
+            }
+        }
+        
+        /* Desktops */
+        @media (min-width: 1024px) {
+            .tabuleiro {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 35px;
+                max-width: 900px;
+            }
+            
+            .carta-frente {
+                font-size: 3.5rem;
+            }
+            
+            .game-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        /* Telas grandes */
+        @media (min-width: 1280px) {
+            .tabuleiro {
+                gap: 40px;
+                max-width: 1000px;
+            }
+            
+            .carta-frente {
+                font-size: 4rem;
+            }
+        }
+        
+        /* Mobile */
+        @media (max-width: 767px) {
+            body {
+                padding-top: 80px;
+            }
+            
+            .navbar-container {
+                padding: 0 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .navbar-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .navbar-links a {
+                padding: 8px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .game-header {
+                padding: 30px 20px;
+            }
+            
+            .game-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .game-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .tabuleiro {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+            
+            .game-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .game-instructions {
+                padding: 25px;
+            }
+        }
+        
+        /* Mobile pequeno */
+        @media (max-width: 480px) {
+            .game-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tabuleiro {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .carta-frente {
+                font-size: 2.5rem;
+            }
+            
+            .stat-card {
+                padding: 20px;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+            
+            .game-btn {
+                padding: 15px 25px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Modo paisagem */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .tabuleiro {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 15px;
+            }
+            
+            .game-header {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .game-stats {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar fixa -->
+    <nav class="memoria-navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                🎮 Jogo da Memória
+            </a>
+            <div class="navbar-links">
+                <a href="index.html">🏠 Início</a>
+                <a href="formulario.html">📝 Formulário</a>
+                <a href="personagens.html">👥 Personagens</a>
+                <a href="memoria.html" class="active">🎮 Jogo da Memória</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="game-container">
+        <!-- Cabeçalho do jogo -->
+        <header class="game-header">
+            <h1>🎮 Jogo da Memória</h1>
+            <p>Teste sua memória encontrando os pares de personagens!</p>
+        </header>
+
+        <!-- Estatísticas -->
+        <div class="game-stats">
+            <div class="stat-card">
+                <span class="stat-label">Tentativas</span>
+                <span class="stat-value" id="tentativas">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Pares Encontrados</span>
+                <span class="stat-value" id="pares">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Melhor Pontuação</span>
+                <span class="stat-value" id="melhor">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Tempo</span>
+                <span class="stat-value" id="tempo">0s</span>
+            </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="game-controls">
+            <button class="game-btn" id="iniciar-btn">
+                ▶️ Iniciar Jogo
+            </button>
+            <button class="game-btn" id="reiniciar-btn">
+                🔄 Reiniciar
+            </button>
+            <button class="game-btn" id="dificuldade-btn">
+                ⚙️ Fácil
+            </button>
+        </div>
+
+        <!-- Tabuleiro do jogo -->
+        <div class="game-board">
+            <div id="tabuleiro" class="tabuleiro">
+                <!-- Cartas serão geradas aqui pelo JavaScript -->
+            </div>
+        </div>
+
+        <!-- Mensagem do jogo -->
+        <div id="mensagem" class="game-message"></div>
+
+        <!-- Instruções -->
+        <div class="game-instructions">
+            <h2>📋 Como Jogar</h2>
+            <ol>
+                <li>Clique em "Iniciar Jogo" para começar</li>
+                <li>Clique em duas cartas para virá-las</li>
+                <li>Encontre os pares de personagens iguais</li>
+                <li>Tente completar no menor número de tentativas</li>
+                <li>Seu melhor resultado será salvo automaticamente</li>
+            </ol>
+            <div class="game-tip">
+                💡 <strong>Dica:</strong> Tente memorizar a posição dos personagens para encontrar os pares mais rapidamente!
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">← Voltar ao Início</a>
+                <a href="personagens.html">👥 Ver Personagens</a>
+                <a href="formulario.html">📝 Formulário de Experiências</a>
+            </div>
+            <p class="footer-info">Jogo desenvolvido com HTML, CSS e JavaScript</p>
+        </div>
+    </footer>
+
+    <script src="memoria.js"></script>
+</body>
+</html>
